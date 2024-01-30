@@ -41,11 +41,21 @@ const ResourceCard = forwardRef(({
     const res = data;
     const types = getTypesInfo();
     const { icon } = types[res.subtype] || types[res.resource_type] || {};
+    
     const {
         formatDetailUrl = resource => resource?.detail_url,
         canPreviewed, hasPermission
     } = res && (types[res.subtype] || types[res.resource_type]) || {};
+
     const detailUrl = res?.pk && formatDetailUrl(res);
+    console.log('detailUrl', detailUrl);
+
+    if (res?.subtype === 'tabular') {
+        detailUrl+='/edit/data';
+    }
+
+    console.log('detailUrl2', detailUrl);
+
     const resourceCanPreviewed = res?.pk && canPreviewed && canPreviewed(res);
     const canView = res?.pk && hasPermission && hasPermission(res);
 
