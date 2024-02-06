@@ -207,7 +207,10 @@ function DetailsPanel({
         icon,
         name
     } = resource && (types[resource.subtype] || types[resource.resource_type]) || {};
-    const detailUrl = resource?.pk && formatDetailUrl(resource);
+    var detailUrl = resource?.pk && formatDetailUrl(resource);
+    if (resource?.subtype === 'tabular') {
+        detailUrl += '/edit/data/';
+    }
     const resourceCanPreviewed = resource?.pk && canPreviewed && canPreviewed(resource);
     const canView = resource?.pk && hasPermission && hasPermission(resource);
     const metadataDetailUrl = resource?.pk && getMetadataDetailUrl(resource);
